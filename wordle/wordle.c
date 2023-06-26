@@ -27,9 +27,9 @@ int main(int argc, string argv[])
 {
     // ensure proper usage
     // TODO #1
-
     int wordsize = 0;
 
+    // checks numnber of command line arguments
     if (argv[1] != NULL)
     {
         if (strlen(argv[1]) > 1 || argc > 2)
@@ -38,6 +38,8 @@ int main(int argc, string argv[])
             return 1;
         }
     }
+
+    // checks if no arguments entered
     if (argv[1] == NULL)
     {
         printf("Error: wordsize must be either 5, 6, 7, or 8\n");
@@ -47,6 +49,7 @@ int main(int argc, string argv[])
     // ensure argv[1] is either 5, 6, 7, or 8 and store that value in wordsize instead
     // TODO #2
 
+    // Checks ASCII value to check number is between 5 and 8. Could have used atoi()?
     if (argv[1][0] < 53 || argv[1][0] > 56)
     {
         printf("Error: wordsize must be either 5, 6, 7, or 8\n");
@@ -79,10 +82,10 @@ int main(int argc, string argv[])
     srand(time(NULL));
     string choice = options[rand() % LISTSIZE];
 
-
     // allow one more guess than the length of the word
     int guesses = wordsize + 1;
     bool won = false;
+    printf("For test purposes, the word is: %s\n", choice); // delete
 
     // print greeting, using ANSI color codes to demonstrate
     printf(GREEN"This is WORDLE50"RESET"\n");
@@ -164,22 +167,35 @@ int check_word(string guess, int wordsize, int status[], string choice)
     // compare guess to choice and score points as appropriate, storing points in status
     // TODO #5
 
-    // HINTS
     for (int l = 0; l < wordsize; l++)
     {
+        int dup = 0; // tracks duplicate letters
         for (int m = 0; m < wordsize; m++)
         {
+            if (guess[l] == guess[m])
+            {
+                dup++;
+            }
             if (guess[l] == choice[m])
             {
+                if (dup > 1)
+                {
+                    status[l] -= 1; // prevents matched letters in incorrect index scoring 2/colored green
+                    score -= 1;
+                }
+                if (status[l] > 0) // this allows duplicate letters to be colored correctly by skipping scored letters
+                {
+                    continue;
+                }
                 if (l == m)
                 {
-                    status[l] = 2;
+                    status[l] += 2;
                     score += 2;
                     break;
                 }
                 else
                 {
-                    status[l] = 1;
+                    status[l] += 1;
                     score += 1;
                 }
             }
