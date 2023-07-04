@@ -1,0 +1,43 @@
+sort1 uses: bubble
+
+How do you know?: Time Complexity: O(n²) — Ω(n) bubble variation between files suggests bubble
+
+sort2 uses: merge
+
+How do you know?: Time Complexity: Θ(n log n) merge and times appear logarithmic between files
+
+sort3 uses: selection
+
+How do you know?: Time Complexity: Θ(n²) selection similiar times for random and reverse indicate n^2 in all cases
+
+Selection sort iterates through the unsorted portions of a list, selecting the smallest element each time and moving it to its correct location.
+Bubble sort compares pairs of adjacent values one at a time and swaps them if they are in the incorrect order. This continues until the list is sorted.
+Merge sort recursively divides the list into two repeatedly and then merges the smaller lists back into a larger one in the correct order.
+
+
+
+// sort 1
+time ./sort1 random5000.txt = 0.087
+time ./sort1 random10000.txt = 0.286
+time ./sort1 random50000.txt = 8.109
+time ./sort1 reversed5000.txt = 0.080
+time ./sort1 reversed10000.txt = 0.252
+time ./sort1 reversed50000.txt = 6.120.  Time Complexity: O(n²) — Ω(n) bubble
+
+
+// sort 2
+time ./sort2 random5000.txt = 0.019
+time ./sort2 random10000.txt = 0.083
+time ./sort2 random50000.txt = 0.084
+time ./sort2 reversed5000.txt = 0.044
+time ./sort2 reversed10000.txt = 0.092
+time ./sort2 reversed50000.txt = 0.409 Time Complexity: Θ(n log n) nerge
+
+
+// sort 3
+time ./sort3 random5000.txt = 0.072
+time ./sort3 random10000.txt = 0.185
+time ./sort3 random50000.txt = 3.698
+time ./sort3 reversed5000.txt = 0.67
+time ./sort3 reversed10000.txt = 0.181
+time ./sort3 reversed50000.txt = 3.569 Time Complexity: Θ(n²) selection
